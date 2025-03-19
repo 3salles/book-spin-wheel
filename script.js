@@ -24,17 +24,11 @@ let digitalBooks = [
 ];
 
 let data = physicalBooks
-
+let numSlots = data.length;
 let wheel = document.getElementById("wheel");
 let result = document.getElementById("chosen");
 let spinButton = document.getElementById("spin-button");
-// let value = Math.ceil(Math.random() * 36000);
-
-// spinButton.onclick = function () {
-//   wheel.style.transform = "rotate(" + value + "deg)";
-//   value += Math.ceil(Math.random() * 36000);
-// };
-
+let value = Math.ceil(Math.random() * 36000); 
 
 function criarSlots() {
   data.forEach((livro, index) => {
@@ -49,17 +43,38 @@ function criarSlots() {
   });
 }
 
-let value = Math.ceil(Math.random() * 36000);
 spinButton.onclick = function () {
-  wheel.style.transition = "transform 5s ease-in-out";
-  wheel.style.transform = "rotate(" + value + "deg)";
-  value += Math.ceil(Math.random() * 36000); 
- 
-  setTimeout(() => {
-    let degreePerSlot = 360 / data.length;
-    let chosenIndex = Math.floor(((value % 360) / degreePerSlot) % data.length);
-    result.textContent = data[chosenIndex]; 
-  }, 5000);
+  // Sorteia um índice aleatório para o livro
+  let selectedIndex = Math.floor(Math.random() * numSlots);
+
+  // Calcula o ângulo correspondente ao índice selecionado
+  let anglePerSlot = 360 / numSlots;
+  let rotationAngle = anglePerSlot * selectedIndex;
+
+  // Adiciona um valor aleatório para fazer a roleta girar algumas voltas extras
+  let extraRotations = Math.floor(Math.random() * 5) * 360;
+
+  // Soma o ângulo da rotação ao valor extra para dar a sensação de aleatoriedade
+  let totalRotation = extraRotations + rotationAngle;
+
+  // Adiciona a rotação à variável 'value' para efeito de rotação contínua
+  let finalRotation = value + totalRotation;
+
+  // Duração da animação (em milissegundos)
+  let duration = 500;  // 5 segundos de rotação
+
+  // Aplique a rotação inicial
+  wheel.style.transition = "transform 5s ease-in-out";  // Adiciona uma transição suave
+
+  // Inicializa a roleta para girar
+  wheel.style.transform = "rotate(" + finalRotation + "deg)";
+  value = finalRotation;  // Atualiza o valor de rotação
+
+  // Após 5 segundos, pare a roleta e mostre o livro sorteado
+  setTimeout(function () {
+    // Atualiza o resultado com o livro escolhido
+    result.textContent = data[selectedIndex];
+  }, duration);  // O tempo do setTimeout deve ser igual ao tempo de rotação
 };
 
 criarSlots();
