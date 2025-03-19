@@ -28,9 +28,38 @@ let data = physicalBooks
 let wheel = document.getElementById("wheel");
 let result = document.getElementById("chosen");
 let spinButton = document.getElementById("spin-button");
-let value = Math.ceil(Math.random() * 36000);
+// let value = Math.ceil(Math.random() * 36000);
 
+// spinButton.onclick = function () {
+//   wheel.style.transform = "rotate(" + value + "deg)";
+//   value += Math.ceil(Math.random() * 36000);
+// };
+
+
+function criarSlots() {
+  data.forEach((livro, index) => {
+    let slot = document.createElement("div");
+    slot.classList.add("slot");
+    slot.style.setProperty("--i", index);
+
+    let span = document.createElement("p");
+    span.textContent = livro;
+    slot.appendChild(span);
+    wheel.appendChild(slot);
+  });
+}
+
+let value = Math.ceil(Math.random() * 36000);
 spinButton.onclick = function () {
+  wheel.style.transition = "transform 5s ease-in-out";
   wheel.style.transform = "rotate(" + value + "deg)";
-  value += Math.ceil(Math.random() * 36000);
+  value += Math.ceil(Math.random() * 36000); 
+ 
+  setTimeout(() => {
+    let degreePerSlot = 360 / data.length;
+    let chosenIndex = Math.floor(((value % 360) / degreePerSlot) % data.length);
+    result.textContent = data[chosenIndex]; 
+  }, 5000);
 };
+
+criarSlots();
