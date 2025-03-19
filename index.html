@@ -8,11 +8,11 @@
 </head>
 <body>
   <article>
-    <section class="physical">
-      <h1>Físico</h1>
+    <section>
+      <h1>Escolher livro</h1>
       <div class="container">
-        <button id="physical-spin-button">Girar</button>
-        <div class="wheel" id="physical-wheel">
+        <button id="spin-button">Girar</button>
+        <div class="wheel" id="wheel">
           <div class="slot" style="--i:1;--clr:#db7093;">
             <span>Valor 1</span>
           </div>
@@ -39,9 +39,7 @@
           </div>
         </div>
       </div>
-    </section>
-    <section class="digital">
-      <h1>Digital</h1>
+      <p class="result">Livro escolhido: <span id="chosen"></span> </p>
     </section>
   </article>
   <script src="script.js"></script>
