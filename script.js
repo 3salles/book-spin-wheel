@@ -30,7 +30,9 @@ let result = document.getElementById("chosen");
 let spinButton = document.getElementById("spin-button");
 let value = Math.ceil(Math.random() * 36000); 
 
-function criarSlots() {
+result.style.visibility = "hidden";
+
+function createSlots() {
   data.forEach((livro, index) => {
     let slot = document.createElement("div");
     slot.classList.add("slot");
@@ -60,9 +62,6 @@ spinButton.onclick = function () {
   // Adiciona a rotação à variável 'value' para efeito de rotação contínua
   let finalRotation = value + totalRotation;
 
-  // Duração da animação (em milissegundos)
-  let duration = 500;  // 5 segundos de rotação
-
   // Aplique a rotação inicial
   wheel.style.transition = "transform 5s ease-in-out";  // Adiciona uma transição suave
 
@@ -70,11 +69,12 @@ spinButton.onclick = function () {
   wheel.style.transform = "rotate(" + finalRotation + "deg)";
   value = finalRotation;  // Atualiza o valor de rotação
 
-  // Após 5 segundos, pare a roleta e mostre o livro sorteado
-  setTimeout(function () {
-    // Atualiza o resultado com o livro escolhido
-    result.textContent = data[selectedIndex];
-  }, duration);  // O tempo do setTimeout deve ser igual ao tempo de rotação
+  result.style.visibility = "hidden";
+
+  wheel.addEventListener('transitionend', function () {
+    result.style.visibility = "visible"; // Exibe o resultado
+    result.textContent = data[selectedIndex]; // Atualiza o texto com o livro sorteado
+  }, { once: true });
 };
 
-criarSlots();
+createSlots();
