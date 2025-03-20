@@ -133,3 +133,14 @@ button {
   font-style: italic;
 }
 
+@media (max-width: 768px) {
+  .container {
+    width: 350px;
+    height: 350px;
+
+    .container .wheel .slot p {
+      font-size: 0.5rem;
+    }
+  }
+}
+
