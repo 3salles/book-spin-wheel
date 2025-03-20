@@ -87,6 +87,7 @@ button {
   user-select: none;
   cursor: pointer;
   overflow: hidden;
+  border: 1px solid #fff; /* Borda branca entre os slots */
 }
 
 .container .wheel .slot p {
