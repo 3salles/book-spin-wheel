@@ -27,11 +27,13 @@ let data = digitalBooks;
 
 let numSlots = data.length;
 let wheel = document.getElementById("wheel");
-let result = document.getElementById("chosen");
 let spinButton = document.getElementById("spin-button");
 let value = Math.ceil(Math.random() * 36000);
+let physicalButton = document.getElementById("physical-button");
+let digitalButton = document.getElementById("digital-button");
 
-result.style.visibility = "hidden";
+
+
 
 function createSlots() {
   wheel.innerHTML = '';
@@ -60,6 +62,18 @@ function createSlots() {
   });
 }
 
+physicalButton.onclick = function () {
+  data = physicalBooks;
+  numSlots = data.length;
+  createSlots();
+}
+
+digitalButton.onclick = function () {
+  data = digitalBooks;
+  numSlots = data.length;
+  createSlots();
+}
+
 spinButton.onclick = function () {
   let selectedIndex = Math.floor(Math.random() * numSlots);
   let anglePerSlot = 360 / numSlots;
@@ -71,13 +85,6 @@ spinButton.onclick = function () {
   wheel.style.transition = "transform 5s ease-in-out";
   wheel.style.transform = "rotate(" + finalRotation + "deg)";
   value = finalRotation;
-
-  result.style.visibility = "hidden";
-
-  wheel.addEventListener('transitionend', function () {
-    result.style.visibility = "hidden";
-    result.textContent = data[selectedIndex];
-  }, { once: true });
 };
 
 createSlots();
